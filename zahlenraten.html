@@ -1,0 +1,66 @@
+<!-- some HTML stuff -->
+<!DOCTYPE = "HTML">
+<html lang="de">
+
+	<head>
+		<meta charset="utf-8"/>
+	</head>
+
+	<body>
+		<h1 style = "font-family: sans">Welcome to "guessing numbers"<h1>
+	</body>
+
+</html>
+
+<!-- some styles -->
+<style type="text/css">
+
+	BODY{
+		background: #CCC;
+	}
+
+</style>
+
+<!-- actual code --> 
+<script>
+
+	var inventedNumber, highNumber = 100, guessedNumber, numberTries = 0, isPositiveIntUnder100;
+
+	inventedNumber = Math.random()*highNumber;
+	inventedNumber = Math.round(inventedNumber + 0.5);
+	console.log(inventedNumber + " - Hey, you cheater!");
+
+	do{
+		numberTries++;
+		guessedNumber = prompt("Please guess a number", "it should be under " + highNumber);
+
+		if(guessedNumber <= 100 && guessedNumber >= 0){
+
+			isPositiveIntUnder100 = true;
+			console.log("istrue")
+
+		}else{
+			isPositiveIntUnder100 = false;
+		}
+
+		if(inventedNumber < guessedNumber && isPositiveIntUnder100 === true){
+
+			alert("your number is too big");
+
+		}else if(inventedNumber > guessedNumber && isPositiveIntUnder100 === true){
+
+			alert("your number is too small");
+
+		}else if(inventedNumber == guessedNumber && isPositiveIntUnder100 === true){
+
+			alert("congratulations, you won! your number of tries is: " + numberTries);
+			
+		}else{
+
+			alert("fairplay please!");
+
+		}
+
+	}while(guessedNumber != inventedNumber);
+
+</script>
