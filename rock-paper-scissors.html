@@ -1,0 +1,88 @@
+<!-- HTML/CSS to make the window look not that white -->
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="utf-8"/>
+	<title></title>
+</head>
+<body>
+	<h1 style="font-family: sans-serif;">Welcome to "Rock, paper, scissors"<h1>
+</body>
+</html> 
+
+<style type="text/css">
+	BODY{
+		background: #CCC;
+	}
+</style>
+<!-- nuff of the markup stuff -->
+
+<!-- actual code -->
+<script type="text/javascript">
+console.log("start")
+var pcWon = 0;
+var playerWon = 0;
+	
+do{
+console.log("loop start")
+	var pcChoice = Math.round((Math.random()*3)+0.5);
+	console.log(pcChoice + " - hey! you are cheating again!")
+
+	if(pcChoice == 1){
+		pcChoice = "rock";
+	}else if(pcChoice == 2){
+		pcChoice = "paper";
+	}else if(pcChoice == 3){
+		pcChoice = "scissors";
+	}
+
+	var isTrueChoice = false;
+
+	playerChoice = prompt("please choose rock(1), paper(2) or scissors(3)", "write the item you chose here as a word or as a number");
+	playerChoice = playerChoice.toLowerCase();
+	console.log("playerChoice: " + playerChoice);
+
+	if(playerChoice == 1){
+		playerChoice = "rock";
+	}else if(playerChoice == 2){
+		playerChoice = "paper";
+	}else if(playerChoice == 3){
+		playerChoice = "scissors";
+	}
+
+	if(playerChoice == "rock" || playerChoice == "paper" || playerChoice == "scissors"){
+		isTrueChoice = true;
+		console.log("isTrueChoice: " + isTrueChoice);
+	}else if(playerChoice == 42){
+		alert("Dont't panic! You won!");
+		playerWon = 2;
+	}else{
+		alert("you made a grammar (or some other kind of) mistake, the computer wins!");
+		pcWon = 2;
+	}
+
+	console.log("playerChoice: " + playerChoice + "! you rock!");
+
+	if(isTrueChoice){
+		if(pcChoice == playerChoice){
+			alert("pc: " + pcChoice + ", you: " + playerChoice + ". undecided, keep fighting!");
+		}else if( (playerChoice == "rock" && pcChoice == "scissors") || 
+				  (playerChoice == "paper" && pcChoice == "rock") ||
+				  (playerChoice == "scissors" && pcChoice == "paper") ){
+			playerWon++;
+			alert("pc: " + pcChoice + ", you: " + playerChoice + ". you won the round!");
+		}else{
+			pcWon++;
+			alert("pc: " + pcChoice + ", you: " + playerChoice + ". the computer wins the round!");
+		}
+	}
+
+}while(pcWon < 2 || playerWon < 2)
+
+if(pcWon == 2){
+	alert("I won! Kill all Humans!");
+}else if(playerWon == 2){
+	alert("You won, I hate you! Kill all Humans!");
+}
+
+</script>
