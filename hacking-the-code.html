@@ -1,0 +1,110 @@
+<!-- HTML/CSS to make the window look not that white -->
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="utf-8"/>
+	<style type="text/css">
+		BODY{
+			background: #000100;
+		}
+	</style>
+	<title>h4ck1n6 7h3 c0d3</title>
+</head>
+<body>
+	<h1 style="font-family: Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace; font-size: 24px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 26.4px; color: #3A933A">
+		> w4k3 up, u53rn4m3... </br>
+		> 7ry 70 h4ck 7h15 c0d3
+	<h1>
+</body>
+</html> 
+<!-- nuff of the markup stuff -->
+
+<!-- actual code -->
+<script type="text/javascript">
+	
+var codeArr = [];
+var inputArr = [];
+var arrLength = 3;
+var highNum = 9;
+var isTrueInput = false;
+
+var createRndArray = function(arr, locLength, maxNum){
+	for(i = 0; i < locLength; i++){
+		arr.push(Math.round(Math.random()*maxNum+0.5));
+	}
+	return arr;
+}
+
+createRndArray(codeArr, arrLength, highNum);
+
+var createInputArr = function(arr, locLength, maxNum){
+	arr = Array.from(prompt("1npu7 y0ur c0d3 h3r3","123"));
+	console.log("arr from createInputArr: " + arr);
+
+	for(i = 0; i < arr.length; i++){
+		if(arr[i] <= maxNum && arr.length === locLength){
+			console.log("isTrueInput is true!");
+			isTrueInput = true;
+		}else{
+			console.log("isTrueInput is false!");
+			isTrueInput = false;
+		}
+	}
+		
+	if(isTrueInput === true){
+			inputArr = arr;
+		}else{
+			alert("GAME OVER! Matrix has you!");
+			inputArr = [];
+		}
+}
+
+	console.log("okay, the code is " + codeArr);
+
+	createInputArr(inputArr, arrLength, highNum);
+	console.log("inputArr: " + inputArr);
+
+
+	var matchingCode = function(){
+		var rightPlace = "on the right place: ";
+		var inTheCode = "in the code, but on the wrong place: "
+		var cracked = 0;
+		var wrongPlaced = 0;
+		var matchingMsg = "";
+
+		console.log("hello from matchingCode()");
+		console.log(codeArr);
+		console.log(inputArr);
+		for (var i = 0; i < codeArr.length; i++) {
+			for (var j = 0; j < inputArr.length; j++) {	
+				if(codeArr[i] == inputArr[j] && i == j){
+					cracked++;
+					rightPlace += " " + inputArr[j].toString();
+				}else if(codeArr[i] == inputArr[j] && i != j) {
+					wrongPlaced++;
+					inTheCode += " " + inputArr[j].toString();
+				}
+			}
+		}
+		if(cracked == codeArr.length){
+			alert("You won! Every number is " + rightPlace);
+		}else{
+			if(rightPlace.length !== 0){
+				matchingMsg += rightPlace;
+			}
+			if(inTheCode.length !== 0){
+				matchingMsg += inTheCode;
+			}
+			alert("try again! " + matchingMsg);
+			
+			createInputArr(inputArr, arrLength, highNum);
+			matchingCode();
+		}
+	}
+
+if(inputArr.length !== 0){
+	matchingCode();
+}
+	
+
+</script>
