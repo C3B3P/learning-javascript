@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hitchhiker's guide to the Galaxy quiz</title>
+    <meta charset="utf-8">
+    <style type="text/css">
+        body{
+            background: #000100;
+        }
+
+        p, span, div{
+            font-family: Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace; 
+            font-style: normal; 
+            font-variant: normal;
+            color: #3A933A;
+        }
+
+        .selection{
+            border-radius: 20px;
+            border: 7px solid #3A933A;
+            float: left;
+            position: relative;
+            background: #000100;
+            height: 90px;
+            width: 70px;
+            margin: 10px;
+            padding: 10px;
+            font-size: 70px;
+        }
+
+        #output{
+            background: #000100;
+            border-radius: 40px;
+            width: 550px;
+            height: 150px;
+            border: 7px solid #3A933A;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        #buttons{
+            width: 500px;
+            height: 200px;
+            margin: 1px auto;
+            text-align: center;
+        }
+
+        #reset{
+            background: #000100;
+            border-radius: 40px;
+            width: 550px;
+            height: 50px;
+            border: 7px solid #3A933A;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="output" onclick="startNewRound();">
+    <p id="question">Welcome to the quiz!</p>
+    <p id="answers">Please click here to start the quiz.</p>
+</div>
+
+<div id="buttons">
+    <p id="1" class="selection" onclick="clickButton(this);">1</p>
+    <p id="2" class="selection" onclick="clickButton(this);">2</p>
+    <p id="3" class="selection" onclick="clickButton(this);">3</p>
+    <p id="4" class="selection" onclick="clickButton(this);">4</p>
+</div>
+
+<div id="reset" onclick="resetGame();">
+    <p id="resetMsg">Click here to reset the game!</p>
+</div>
+
+<script type="text/javascript">
+    //the quiz questions and answers are found at www.gradesaver.com. https://www.gradesaver.com/the-hitchhikers-guide-to-the-galaxy
+
+    var questions = ["The novel was first a#1.poem 2.radio program 3.movie 4.play#2","The novel is considered#1.humor 2.satire 3.science fiction 4.all of the above#3","Arthur Dent works in#1.art 2.medicine 3.law 4.radio#4","What is going to happen to Arthur's house?#1.It'll be expanded 2.It'll be sold 3.It'll be bombed 4.It'll be knocked down#4","Who is Prosser?#1.An alien 2.A policeman 3.A bartender 4.A council rep#4","Ford Prefect is all of the following except# 1.a hitchhiker 2.an alien 3.a researcher 4.a human#4","What is the Pan Galactic Gargle Blaster?#1.A drink 2. A place 3.A gun 4.A book#1","What does Ford find out?#1.That Earth is going to be destroyed 2.That he has a ride off Earth 3.That he is going to be killed 4.That he is stuck on Earth forever#1","Where does Ford take Arthur to tell him the news?#1.A restaurant 2.A library 3.A nightclub 4.A bar#4","What is the most useful item for traveling?#1.A towel 2.A cup 3.A knife 4.A map#1","Why do the Vogons destroy Earth?#1.For revenge 2.To build a bypass 3.For fun 4.To demonstrate power#2","What is the Heart of Gold?#A boat 2.Currency 3.A ship 4.A gem#3","Zaphod Beeblebrox is all the following except#1.a narcissist 2.an ex-hippie 3.President 4.human#4","Most notably, Zaphod has#1.two heads 2.three eyes 3.blue hair 4.eight arms#1","Which of the following is true?#1.Zaphod is planning to resign 2.Zaphod is very qualified to be President 3.Zaphod is extremely shy 4.The President has no real power#4","Who is Trillion?#1.A girl Zaphod picked up 2.A member of the press 3.An alien 4.An inventor#1","What does Zaphod announce he is going to do at the unveiling of the ship?#1.Resign the presidency 2.Blow up Earth 3.Steal the ship 4.Use the Heart of Gold box#3","The Vogons#1.never really evolved much 2.are very attractive 3.do not eat other creatures 4.are known for their intelligence#1","What do the Dentrassi do for the Vogons?#1.Clean 2.Write their poetry 3.Fly their ship 4.Cook#4","Vogon Jeltz is generally very#1.calm 2.apathetic 3.funny 4.irritable#4","What does the cover to the \"Guide\" say?#1.Open Me 2.Caution 3.Help Me 4.Don't Panic#4","What does the fish do?#1.Translate 2.Kill 3.Heal 4.Mute#1", "How does Jeltz feel about the hitchhikers?#1.Very annoyed 2.Excited 3.Curious 4.Indifferent#1","The babelfish also#1.destroyed philosophy 2.created a classless society 3.disproved the existence of God 4.helped fix the economy#3","The entry for Earth says that it is \"______\"#1.harmless 2.gone 3.stupid 4.useless#1"];
+
+
+    var rounds = 0;
+    var rightAnswer;
+    var blocked = true;
+    var points = 0;
+
+    
+
+    var defineQuestions = function(){
+        for(var i=0; i<questions.length; i++){
+            questions.sort(function(a, b){return Math.random()-0.5});
+        }
+        console.log(questions);
+        console.log(questions.length);
+    }
+
+    var clickButton = function(selectedButton){
+            if(blocked == true){return;}
+
+            blocked = true;
+
+            selectedButton.style.background = "#FFF";
+            if(selectedButton.getAttribute("id") == rightAnswer){
+                points++;
+            }else{
+                selectedButton.style.background ="#F00";
+            }
+    }
+
+    var startNewRound = function(){
+        document.getElementById("1").style.background = document.getElementById("2").style.background = document.getElementById("3").style.background = document.getElementById("4").style.background = "#000"
+
+        if(rounds<5){
+            blocked = false;
+            rounds++;
+            question = questions.shift();
+            var preparedQuestion = question.split("#");
+            document.getElementById("question").innerHTML = preparedQuestion[0];
+            document.getElementById("answers").innerHTML = preparedQuestion[1];
+            rightAnswer = preparedQuestion[2];
+            setTimeout(startNewRound, 6000);
+        }else{
+            alert("GAME OVER\nYou got " + points + " points of 5 possible.");
+        }
+    }
+
+    var resetGame = function(){
+        blocked = false;
+        rounds = 0;
+        question = "";
+        points = 0;
+        alert("The game is reset. You lost all your points.");
+        setTimeout(startNewRound, 6000);
+        }
+
+    defineQuestions();    
+</script>
+</body>
+</html>
