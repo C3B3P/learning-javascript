@@ -5,3 +5,4 @@
   3.1 UPD: the game can be started by clicking the text "cklick here to start the game"
 4. **bubblesort.html** this one is sorting a string, which is hardcoded in the source code, you ca open it as usual
 5. **quiz-42.html** covers the next chapter and is a quiz on Douglas Adams' "Hitchhiker's guide to the Galaxy". It's starting by opening the document or by reload. You can also reset the game, if You click the button "Click here to reset the game!".
+6. **calcuking** is a calculating quiz. There are some TODO's in the interface.

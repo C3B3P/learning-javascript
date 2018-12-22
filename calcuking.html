@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CALCUKING: test your calculating skills!</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		body { background: #000100 }
+
+		.text{ 
+		  position: relative;
+		  font-family: Monaco, Arial, Helvetica, sans-serif;
+		  line-height: 22px;
+		  font-size: 22px;
+		  color: #3A933A;
+		  min-width: 360px;
+		  margin: 10px;
+		  font-weight: 700; 
+		}
+
+
+		.results{
+		  	font-family: Monaco, Arial, Helvetica, sans-serif;
+			background: #000100;
+			border: 0px solid;
+			color: #3A933A;
+			line-height: 22px;
+			font-size: 22px;
+			min-width: 360px;
+			font-weight: 700; 
+		}
+
+	</style>
+</head>
+<body>
+	<div onclick="generateQuestion();" class="text">
+		<p id="answer">> click here</p>
+		<p id="question">> click field above to start!</p>
+		<form onsubmit="return checkInput();">
+		  <span>> your answer:</span><input id="input" class="results" type="text" autofocus autocomplete="off">
+		</form>
+	</div>
+
+	<script type="text/javascript">
+
+		var currentResult;
+		var points = 0;
+		var round = 0;
+		var lvl = 1;
+
+		if(round == 0){
+			loadGame();
+		}
+		
+		function generateQuestion(){
+			console.log("generateQuestion");
+			var output;
+			var firstNumber;
+			var secondNumber;
+			var operator;
+
+			document.getElementById("answer").style.color = "#3A933A";
+			document.getElementById("input").style.color = "#3A933A";
+			document.getElementById("input").value = "";
+			document.getElementById("input").focus();
+			
+			round++;
+
+			if(points>lvl*5){
+				lvl++;
+			}
+
+			var firstNumber = Math.round(Math.random()*lvl*5+0.5);
+			var secondNumber = Math.round(Math.random()*lvl*5+0.5);
+			var operator = Math.round(Math.random()*2+0.5);
+
+			operator = (operator == 1) ? "plus":"minus";
+
+			switch(operator){
+
+				case "plus":
+					output = "> please calculate: " + firstNumber + " + " + secondNumber;
+					currentResult = firstNumber + secondNumber;
+				break;
+				case "minus":
+					if(secondNumber > firstNumber){
+						var temp = firstNumber;
+						firstNumber = secondNumber;
+						secondNumber = temp;
+					}
+
+					output = "> please calculate: " + firstNumber + " - " + secondNumber;
+					currentResult = firstNumber - secondNumber;
+				break;
+				default:
+					alert("something went wrong...");
+			}
+
+			document.getElementById("question").innerHTML = output;
+			document.getElementById("answer").innerHTML = "> your level: " + lvl + ", points: " + points + ", rounds: " + round;
+
+			saveGame();
+		}
+
+		function checkInput(){
+			if(document.getElementById("input").value.toLowerCase() == "delete"){
+				points = 0;
+				round = 0;
+				lvl = 1;
+			}
+
+			var currentInput = document.getElementById("input").value;
+
+			if(currentResult == currentInput){
+				points++;
+				document.getElementById("answer").innerHTML = "> very good! your answer is right!";
+			}else{
+				document.getElementById("answer").style.color = "red";
+				document.getElementById("input").style.color = "red";
+
+				document.getElementById("answer").innerHTML = "> so sorry! that was a wrong answer..."
+			}
+			
+			setTimeout(generateQuestion, 1500);
+			return false;
+		}
+
+		function saveGame(){
+			localStorage.setItem("points", points);
+			localStorage.setItem("round", round);
+			localStorage.setItem("lvl", lvl);
+		}
+
+		function loadGame(){
+			if(localStorage.getItem("points")){
+				points = parseInt(localStorage.getItem("points"));
+				round = parseInt(localStorage.getItem("round"));
+				lvl = parseInt(localStorage.getItem("lvl"));
+			}
+		}
+
+	</script>
+</body>
+</html>
